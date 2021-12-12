@@ -1,0 +1,25 @@
+import matplotlib.pyplot as plt
+from pandas import DataFrame
+
+
+# data sets
+dataArray = {'Total Likes': [10, 20, 30, 40, 50], 'View Count': [100, 130, 200, 380, 500]}
+ds = DataFrame(dataArray, index=['A', 'B', 'C', 'D', 'E'])
+
+#윈도우 시스템 창 이름
+fontFigure = plt.figure("HOOAI Python Example Codes")
+
+#그래프 제목 타이틀
+fontFigure.suptitle('HOOAI', fontsize=40)
+fontSub = fontFigure.add_subplot(111)
+fontFigure.subplots_adjust(top=0.80)
+#그래프 소제목 타이틀
+fontSub.set_title('Python Example Code', fontsize=20)
+#x축과 y축
+fontSub.set_xlabel('Total Likes', fontsize=20)
+fontSub.set_ylabel('View count', fontsize=20)
+
+# Scatter functions
+plt.scatter(ds['Total Likes'], ds['View Count'], c='red', cmap = 'Greens', edgecolors = 'black', linewidth = 1)
+plt.colorbar(label = 'Subscribers')
+plt.show()
