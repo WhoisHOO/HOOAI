@@ -1,0 +1,24 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# x.linspace(start, stop, num=100, endpoint=True, retstep=False, dtype=None, axis=0)
+x = np.linspace(0, 2, 100)
+
+# Axes 생성
+fig, ax = plt.subplots()
+
+# x값에 따른 y값 산출
+ax.plot(x, x/2, label='x/2', c = 'orange')
+ax.plot(x, x, label='x', c = 'red')
+ax.plot(x, 2*x, label='2x', c = 'blue')
+ax.plot(x, x**2, label='x^2', c = 'green')
+ax.plot(x, x**3, label='x^3', c = 'purple')
+
+#이름
+ax.set_xlabel('x label')
+ax.set_ylabel('y label')
+ax.set_title('HOOAI Example Codes')
+
+#출력
+ax.legend()
+plt.show()
