@@ -1,0 +1,18 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, ax = plt.subplots()
+
+locationName = ('Gangwon-do', 'Gyeonggi-do', 'Gyeongsangnam-do', 'Gyeongsangbuk-do', 'Busan-si')
+y_hd = np.arange(len(locationName))
+values = [13, 1, 19, 14, 3]
+error = 0
+
+ax.barh(y_hd, values, xerr=error, align='center')
+ax.set_yticks(y_hd, labels=locationName)
+ax.invert_yaxis()
+ax.set_xlabel('Data')
+ax.set_title('The Number of Harbor Data')
+
+
+plt.show()
