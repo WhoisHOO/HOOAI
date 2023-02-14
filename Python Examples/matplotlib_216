@@ -1,3 +1,5 @@
+# https://whoishoo.tistory.com/216
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -13,6 +15,5 @@ ax.set_yticks(y_hd, labels=locationName)
 ax.invert_yaxis()
 ax.set_xlabel('Data')
 ax.set_title('The Number of Harbor Data')
-
 
 plt.show()
