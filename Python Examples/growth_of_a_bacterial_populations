@@ -1,0 +1,28 @@
+# each mintute: for loop 0 to 60
+# N0 = 2^(-1), u=0.092^(-1), e=2.71828
+#gbp is a growth of a bacterial populations.
+# t is a minute.
+
+import matplotlib.pyplot as plt
+n0 = 0.5
+u = 10.869565217391305
+e = 2.71828
+t_values = []
+gbp_values = []
+t = 0
+
+for x in range(61):
+    eut = pow(e, (u * t))
+    gbp = n0 * eut
+    print(f"t={t}, gbp={gbp}")
+    t_values.append(t)
+    gbp_values.append(gbp)
+    t = t + 1
+print ("Finished! Coded by HOO")
+
+plt.plot(t_values, gbp_values)
+plt.xlabel('Time (minutes)')
+plt.ylabel('GBP')
+plt.title('GBP Growth Over Time')
+plt.grid(True)
+plt.show()
