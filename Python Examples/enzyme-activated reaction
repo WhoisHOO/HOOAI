@@ -1,0 +1,28 @@
+# v= Vmax[s]/Km+[s]
+#[s]=0 to 80
+#Km=10
+#Vmax=0.10^(-1)
+#ear is a enzyme-activated reaction
+
+import matplotlib.pyplot as plt
+v_max=10
+km=10
+s_values = []
+ear_values = []
+s = 0
+
+for x in range(81):
+
+    ear = (v_max*s)/(km+s)
+    print(f"s={s}, ear={ear}")
+    s_values.append(s)
+    ear_values.append(ear)
+    s = s + 1
+print ("Finished! Coded by HOO.")
+
+plt.plot(s_values, ear_values)
+plt.xlabel('Time (minutes)')
+plt.ylabel('Enzyme-activated Reaction')
+plt.title('Enzyme-activated Reaction Over Time')
+plt.grid(True)
+plt.show()
