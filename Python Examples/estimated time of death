@@ -1,0 +1,18 @@
+# e = 2.71828, C = 8, k=0.006^(-1), body temperature = 37, 48 hour graph
+# a dead body was found next to Lake at 8 am Sunday morning with a temperature of 19 degrees C. estimate the time of death
+# dt is a body temperature - dead body temperature
+# bt is a body temperature
+
+e = 2.71828
+C = 8
+k = 166.666667
+bt=37.00
+dt=bt-19
+t=0
+
+while dt > 0:
+  dt=dt-1
+  t=t+1
+
+print ("Estimate the time of death is ",t, "hours before!!!")
+print ("What did you do at that time, Dr.HOO?")
