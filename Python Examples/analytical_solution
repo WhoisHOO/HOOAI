@@ -1,0 +1,21 @@
+#analytical solution
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+N0 = 10
+k = 0.10
+t_values = np.arange(0, 31, 0.1)
+
+# Analytical solution
+N_analytical = (N0 - 0) * np.exp(k * t_values) + 0
+
+# Plotting
+for t, N_t in zip(t_values, N_analytical):
+  print("time: " ,t, "/ N_t: " ,N_t)
+
+plt.plot(t_values, N_analytical, label="Analytical Solution")
+plt.xlabel("Time (t)")
+plt.ylabel("Population (N)")
+plt.legend()
+plt.show()
