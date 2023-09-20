@@ -1,0 +1,26 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+N0 = 10
+k = 0.10
+t_values = np.arange(0, 31, 0.1)
+delta_t = 0.1
+
+# Improved Euler Integration (Heun's Method)
+N_improved_euler = [N0]
+for t in t_values[1:]:
+    N_pred = N_improved_euler[-1] + delta_t * k * N_improved_euler[-1]
+    N_next = N_improved_euler[-1] + 0.5 * delta_t * (k * N_improved_euler[-1] + k * N_pred)
+    N_improved_euler.append(N_next)
+
+#Table values
+for t, N_t in zip(t_values, N_improved_euler):
+  print("time: " ,t, "/ N_t: " ,N_t)
+
+# Plotting
+plt.plot(t_values, N_improved_euler, label="Improved Euler Integration")
+plt.xlabel("Time (t)")
+plt.ylabel("Population (N)")
+plt.legend()
+plt.show()
