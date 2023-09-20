@@ -1,0 +1,30 @@
+#4th-order runge
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+N0 = 10
+k = 0.10
+t_values = np.arange(0, 31, 0.1)
+delta_t = 0.1
+
+# 4th-Order Runge-Kutta Method
+N_rk4 = [N0]
+for t in t_values[1:]:
+    k1 = k * N_rk4[-1]
+    k2 = k * (N_rk4[-1] + 0.5 * delta_t * k1)
+    k3 = k * (N_rk4[-1] + 0.5 * delta_t * k2)
+    k4 = k * (N_rk4[-1] + delta_t * k3)
+    N_next = N_rk4[-1] + (delta_t / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
+    N_rk4.append(N_next)
+
+#Table values
+for t, N_t in zip(t_values, N_rk4):
+  print("time: " ,t, "/ N_t: " ,N_t)
+
+# Plotting
+plt.plot(t_values, N_rk4, label="4th-Order Runge-Kutta")
+plt.xlabel("Time (t)")
+plt.ylabel("Population (N)")
+plt.legend()
+plt.show()
