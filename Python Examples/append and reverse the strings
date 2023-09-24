@@ -1,0 +1,41 @@
+def append_and_reverse(firststring, secondstring):
+    # Initialize variables to store the result and lengths of the input strings
+    result = []
+    first_len = 0
+    second_len = 0
+
+    # Calculate the lengths of the input strings
+    for char in firststring:
+        if char == '\0':
+            break
+        first_len += 1
+    for char in secondstring:
+        if char == '\0':
+            break
+        second_len += 1
+
+    # Append characters from the first string
+    for i in range(first_len):
+        result.append(firststring[i])
+
+    # Append characters from the second string
+    for i in range(second_len):
+        result.append(secondstring[i])
+
+    # Reverse the result
+    result.reverse()
+
+    # Convert the result list back to a string
+    result_str = ''.join(result)
+
+    return result_str
+
+# Define the input character arrays
+firststring = "HOO\0"
+secondstring = "AI\0"
+
+# Call the function to append and reverse the strings
+output = append_and_reverse(firststring, secondstring)
+
+# Print the result
+print("HOOAI:",output)
