@@ -1,16 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def Euler(func, X0, t, alpha, beta, delta, gamma):
-
-    dt = t[1] - t[0]
-    nt = len(t)
-    X  = np.zeros([nt, len(X0)])
-    X[0] = X0
-    for i in range(nt-1):
-        X[i+1] = X[i] + func(X[i], t[i], alpha,  beta, delta, gamma) * dt
-    return X
-
 # Constants
 r = 0.1  # Prey reproduction rate
 g = 0.002  # Predator reproduction rate
@@ -25,26 +15,28 @@ P0 = 50    # Initial predator population
 dt = 0.1   # Time step
 num_steps = 2000  # Number of time steps
 
-# Initialize arrays to store population values
-prey_population = np.zeros(num_steps)
-predator_population = np.zeros(num_steps)
-
 # Initialize time array
 time = np.arange(0, num_steps * dt, dt)
 
-# Perform numerical integration (Lotka-volterra model of predation)
-for i in range(num_steps):
-    dNdt = (r * N0 - h * N0 * P0) * dt
-    dPdt = (g * h * N0 * P0 -m * P0) * dt
-    N0 += dNdt
-    P0 += dPdt
+# Lotka-Volterra model equations
+def lv_model(X, t, alpha, beta, delta, gamma):
+    N, P = X
+    dNdt = alpha * N - beta * N * P
+    dPdt = delta * N * P - gamma * P
+    return np.array([dNdt, dPdt])
 
-    prey_population[i] = N0
-    predator_population[i] = P0
+# Perform numerical integration using the Euler method
+alpha = r
+beta = h
+delta = g
+gamma = m
 
-#Table values
-#for t, N_t in zip(time, prey_population):
-#  print("time: " ,time, "/ N_t: " ,prey_population)
+X0 = [N0, P0]
+X = Euler(lv_model, X0, time, alpha, beta, delta, gamma)
+
+# Extract prey and predator populations
+prey_population = X[:, 0]
+predator_population = X[:, 1]
 
 # Plotting the first graph (Density vs. Time)
 plt.figure(figsize=(12, 6))
@@ -64,24 +56,11 @@ plt.ylabel('Predator Density')
 plt.title('Phase Plot of Predator Density vs. Prey Density')
 
 # Plot predator and prey isoclines
-prey_isocline = np.linspace(0, 3000, num_steps)
-predator_isocline = r / h + np.zeros(num_steps)
-plt.plot(prey_isocline, predator_isocline, '*', label='Prey Isocline', color='green')
-plt.plot(prey_isocline, predator_isocline * (m / (g * h)), '+', label='Predator Isocline', color='red')
+prey_isocline = np.linspace(0, max(prey_population), num_steps)
+predator_isocline = alpha / beta + np.zeros(num_steps)
+plt.plot(prey_isocline, predator_isocline, '--', label='Prey Isocline', color='green')
+plt.plot(prey_isocline, predator_isocline * (delta / gamma), '--', label='Predator Isocline', color='red')
 plt.legend()
 
 plt.tight_layout()
-plt.show()
-
-Xe = Euler(derivative, X0, t, alpha, beta, delta, gamma)
-plt.figure()
-plt.title("Euler method")
-plt.plot(t, Xe[:, 0], 'xb', label = 'Deer')
-plt.plot(t, Xe[:, 1], '+r', label = "Wolves")
-plt.grid()
-plt.xlabel("Time, $t$ [s]")
-plt.ylabel('Population')
-plt.ylim([0.,3.])
-plt.legend(loc = "best")
-
 plt.show()
