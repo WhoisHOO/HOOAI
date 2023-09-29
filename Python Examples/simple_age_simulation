@@ -1,0 +1,35 @@
+# Define initial population values (N_x from Table 9.1)
+age_classes = [0, 1, 2, 3, 4, 5, 6]
+initial_population = [0, 100, 200, 300, 200, 100, 50]
+
+# Simulate for 12 years
+years = 12
+current_population = initial_population.copy()
+
+# Print the header for the table
+print(f"{'Year':<5}{'Age Class':<15}{'Population'}")
+
+# Simulate and print population data for each year
+for year in range(years + 1):
+    total_population = sum(current_population)
+    print(f"{year:<5}{'Total':<15}{total_population}")
+
+    for age, population in zip(age_classes, current_population):
+        print(f"{'':<5}{age:<15}{population}")
+
+    # Calculate new population for the next year
+    new_population = [0] * len(age_classes)
+
+    # Calculate natality (births)
+    # Assume a constant birth rate for age class 6
+    births = current_population[-1] * 0.25
+    new_population[0] = births
+
+    # Calculate survival for other age classes
+    # Assume a constant survival rate of 95%
+    for i in range(len(age_classes) - 1):
+        new_population[i + 1] = current_population[i] * 0.95
+
+    current_population = new_population
+
+    print("-" * 30)
