@@ -1,0 +1,103 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Initial compartment sizes
+N1 = 2635
+N2 = 213
+N3 = 62
+N4 = 9
+N5 = 25
+
+# Rate coefficients
+u51 = 1.310
+u52 = 5.141
+u53 = 0.742
+u54 = 0.889
+t21 = 1.094
+t32 = 1.798
+t43 = 0.339
+p01 = 4.545
+p02 = 8.873
+p03 = 5.097
+p04 = 1.444
+p05 = 184.0
+l01 = 0.94
+
+# Driving functions
+k = 486  # kcal m^(-2)yr^(-1)
+R = 175  # kcal m^(-2)wk^(-1)
+M = 400  # kcal m^(-2)wk^(-1)
+
+# Simulation parameters
+delta_t = 0.1  # Time step in weeks
+num_weeks = int(3 * 52)  # 3 years of simulation (52 weeks/year)
+
+# Lists to store compartment sizes over time
+N1_values = [N1]
+N2_values = [N2]
+N3_values = [N3]
+N4_values = [N4]
+N5_values = [N5]
+
+# Euler integration to simulate the system over time
+for week in range(1, num_weeks + 1):
+    # Calculate changes in compartment sizes
+    dN1 = delta_t * (p01 - u51 * N1 - u52 * N1 - u53 * N1 - u54 * N1)
+    dN2 = delta_t * (u51 * N1 - t21 * N2)
+    dN3 = delta_t * (u52 * N1 - t32 * N3)
+    dN4 = delta_t * (u53 * N1 + t32 * N3 - t43 * N4)
+    dN5 = delta_t * (u54 * N1 + t43 * N4 - p05 * N5)
+
+    # Update compartment sizes
+    N1 += dN1
+    N2 += dN2
+    N3 += dN3
+    N4 += dN4
+    N5 += dN5
+
+    # Store values for plotting
+    N1_values.append(N1)
+    N2_values.append(N2)
+    N3_values.append(N3)
+    N4_values.append(N4)
+    N5_values.append(N5)
+
+# Create time values for plotting
+time_values = np.arange(0, (num_weeks + 1) * delta_t, delta_t)
+
+# Plot the compartment sizes over time
+plt.figure(figsize=(10, 12))
+
+# Plot N1
+plt.subplot(5, 1, 1)
+plt.plot(time_values, N1_values, label='N1')
+plt.ylabel('N1 Size')
+plt.title('Result of Compartments N1')
+
+# Plot N2
+plt.subplot(5, 1, 2)
+plt.plot(time_values, N2_values, label='N2')
+plt.ylabel('N2 Size')
+plt.title('Result of Compartments N2')
+
+# Plot N3
+plt.subplot(5, 1, 3)
+plt.plot(time_values, N3_values, label='N3')
+plt.ylabel('N3 Size')
+plt.title('Result of Compartments N3')
+
+# Plot N4
+plt.subplot(5, 1, 4)
+plt.plot(time_values, N4_values, label='N4')
+plt.ylabel('N4 Size')
+plt.title('Result of Compartments N4')
+
+# Plot N5
+plt.subplot(5, 1, 5)
+plt.plot(time_values, N5_values, label='N5')
+plt.xlabel('Time (weeks)')
+plt.ylabel('N5 Size')
+plt.title('Result of Compartments N5')
+
+plt.tight_layout()
+plt.show()
