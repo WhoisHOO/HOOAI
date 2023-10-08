@@ -1,0 +1,28 @@
+import numpy as np
+
+array1 = np.array([[1, 2], [3, 4]])
+array2 = np.array([[3, 4], [1, 2]])
+
+# Perform SVD on both matrices
+U1, S1, VT1 = np.linalg.svd(array1, full_matrices=True)
+U2, S2, VT2 = np.linalg.svd(array2, full_matrices=True)
+
+# Printing the results
+print("Matrix 1: \n", array1)
+print("Matrix 2: \n", array2)
+
+print("\nSVD for matrix 1:")
+print("U1:")
+print(U1)
+print("S1:")
+print(S1)
+print("VT1:")
+print(VT1)
+
+print("\nSVD for matrix 2:")
+print("U2:")
+print(U2)
+print("S2:")
+print(S2)
+print("VT2:")
+print(VT2)
