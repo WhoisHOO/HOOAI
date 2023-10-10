@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define structure node with
+struct node {
+    int value;
+    struct node* next;
+    struct node* prev;
+};
+
+// Set head pointer to NULL
+struct node* head = NULL;
+
+// Function to display the list
+void displayList() {
+    struct node* nodePtr = head;
+    struct node* LastNode = NULL;
+    int count = 0;
+
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    printf("Values in the list: ");
+    while (nodePtr != NULL) {
+        printf("%d ", nodePtr->value);
+        LastNode = nodePtr;
+        nodePtr = nodePtr->next;
+        count++;
+    }
+
+    printf("\nPrinting backwards: ");
+    while (LastNode != NULL) {
+        printf("%d ", LastNode->value);
+        LastNode = LastNode->prev;
+    }
+
+    nodePtr = head;
+    for (int i = 0; i < count / 2; i++) {
+        nodePtr = nodePtr->next;
+    }
+
+    printf("\n\nMiddle value: %d\n", nodePtr->value);
+
+    if (nodePtr->next != NULL) {
+        printf("Value to the right: %d\n", nodePtr->prev->value);
+    } else {
+        printf("No value to the right\n");
+        
+    }
+       if (nodePtr->prev != NULL) {
+        printf("Value to the left: %d\n", nodePtr->next->value);
+    } else {
+        printf("No value to the left\n");
+    }
+}
+
+// Function to insert an element at the end of the list
+void insert_end(int num) {
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    struct node* nodePtr = head;
+
+    newnode->value = num;
+    newnode->next = NULL;
+
+    if (head == NULL) {
+        head = newnode;
+        newnode->prev = NULL;
+    } else {
+        while (nodePtr->next != NULL) {
+            nodePtr = nodePtr->next;
+        }
+        nodePtr->next = newnode;
+        newnode->prev = nodePtr;
+    }
+}
+
+int main() {
+    // Call insert_end
+    insert_end(123);
+    insert_end(699);
+    insert_end(873);
+    insert_end(597);
+    insert_end(596);
+    insert_end(324);
+    insert_end(156);
+
+    // Call displayList()
+    displayList();
+
+    printf("\n");
+
+    return 0;
+}
