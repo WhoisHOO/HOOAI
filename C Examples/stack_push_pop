@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdbool.h>
+#define MAX_SIZE 100
+
+// Define
+int stack[MAX_SIZE];
+int top = -1;
+
+// Function to push
+void push(int value) {
+    if (top >= MAX_SIZE - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack[++top] = value;
+}
+
+// Function to pop
+int pop() {
+    if (top == -1) {
+        printf(" STACK UNDERFLOW\n");
+        return -1;
+    }
+    return stack[top--];
+}
+
+// Function to add
+void add() {
+    if (top < 1) {
+        printf("Insufficient operands for addition\n");
+        return;
+    }
+    int operand2 = pop();
+    int operand1 = pop();
+    push(operand1 + operand2);
+}
+
+// Function to divide
+void divide() {
+    if (top < 1) {
+        printf("Insufficient operands for division\n");
+        return;
+    }
+    int operand2 = pop();
+    int operand1 = pop();
+    if (operand2 == 0) {
+        printf("Division by zero\n");
+        return;
+    }
+    push(operand2 / operand1);
+}
+
+void displayStack() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+    for (int i = 0; i <= top; i++) {
+        printf("\nPushing %d", stack[i]);
+    }
+    printf("\n");
+}
+
+// Display
+void displayStackBar() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+
+    for (int i = top; i >= 0; i--) {
+        printf(" |%d|\n", stack[i]);
+    }
+    printf("\n");
+}
+
+// Main block
+int main() {
+    push(10);
+    push(11);
+    push(12);
+    push(13);
+    push(14);
+
+    printf("Pushing 5 values to the stack:");
+    displayStack();
+    
+    printf("Displaying the Stack:\n");
+    displayStackBar();
+
+    printf("\nAdding top two numbers and pushing the sum onto the stack:\n");
+    add();
+    displayStackBar();
+
+    printf("Pops the first two values off the stack and divide. Then push it back onto the stack:\n");
+    divide();
+    displayStackBar();
+
+    printf("Popping values from the stack:\n");
+    int poppedValue = pop();
+    printf("%d\n", poppedValue);
+    poppedValue = pop();
+    printf("%d\n", poppedValue);
+    poppedValue = pop();
+    printf("%d\n", poppedValue);
+
+    printf("\nAttempting to pop a value that isn't there:\n");
+    poppedValue = pop();
+    
+    return 0;
+}
