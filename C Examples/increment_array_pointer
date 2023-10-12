@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+// Function to add 1 to each element in the range [i, j)
+void addNum(int* i, int* j)
+{
+    // For loop through the range
+    for (int* count = i; count < j; count++)
+    {
+        // Increment the value pointed to by 'count'
+        (*count)++;
+    }
+}
+
+// Function to display elements in the range [i, j)
+void display(const int* i, const int* j)
+{
+    // For loop through the range
+    for (const int* count = i; count < j; count++)
+    {
+        cout << *count << endl;
+    }
+}
+
+// Main block
+int main()
+{
+    // Initialize an array of integers
+    int numbers[] = {1,2,3,4,5,4,3,2,1};
+    // Call the addNum function
+    addNum(numbers, numbers + 9); 
+    // Call the display function to print elements
+    display(numbers, numbers + 5);
+
+    return 0;
+}
