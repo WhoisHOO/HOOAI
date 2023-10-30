@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+float power(float base, float exponent) {
+    // Base case
+    if (exponent == 0) {
+        return 1;
+    }
+    // Recursive case
+    else {
+        return base * power(base, exponent - 1);
+    }
+}
+
+int main() {
+    float base;
+    float exponent;
+
+    printf("Recursive Power Function\n");
+    printf("Enter base: ");
+    scanf("%f", &base);
+    printf("Enter exponent: ");
+    scanf("%f", &exponent);
+
+    float result = power(base, exponent);
+
+    printf("Result: %.2f\n", result);
+    return 0;
+}
