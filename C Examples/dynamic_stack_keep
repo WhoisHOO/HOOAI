@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct StackNode {
+    int value;
+    struct StackNode* next;
+};
+
+struct StackNode* top = NULL;
+
+void push(int val) {
+    struct StackNode* newNode = (struct StackNode*)malloc(sizeof(struct StackNode));
+    newNode->value = val;
+    newNode->next = top;
+    top = newNode;
+}
+
+void display() {
+    struct StackNode* ptr = top;
+    if (top == NULL) {
+        printf("STACK IS EMPTY\n");
+    } else {
+        while (ptr != NULL) {
+            printf("|%d|\n", ptr->value);
+            ptr = ptr->next;
+        }
+    }
+}
+
+void winner(int winnum) {
+    struct StackNode* ptr = top;
+    if (top == NULL) {
+        printf("STACK IS EMPTY\n");
+    } else {
+        while (ptr != NULL) {
+            if (ptr->value == winnum) {
+                printf("Congratulations, you won!\n");
+                return;
+            }
+            ptr = ptr->next;
+        }
+        printf("Sorry, you need to buy more tickets!\n");
+    }
+}
+
+void pop() {
+    if (top == NULL) {
+        printf("STACK UNDERFLOW\n");
+    } else {
+        struct StackNode* ptr = top;
+        top = top->next;
+        free(ptr);
+    }
+}
+
+int main() {
+    int number;
+    int ticketarray[] = {4525856, 8653154, 2543679, 9543567, 5909866, 2468576, 9845645};
+    printf("Pushing 7 values to the stack...\n");
+    printf("Displaying the Dynamic stack:\n");
+    for (int i = 0; i < 7; i++) {
+        push(ticketarray[i]);
+        
+    }
+    display();
+
+    printf("\n\nEnter your lottery ticket number: ");
+    scanf("%d", &number);
+    winner(number);
+
+    for (int i = 0; i < 3; i++) {
+        pop();
+    }
+    push(7653459);
+    for (int i = 4; i < 7; i++) {
+        push(ticketarray[i]);
+    }
+
+    printf("\n\nStack after changing the middle number: \n");
+    display();
+
+    // Free the remaining nodes
+    while (top != NULL) {
+        pop();
+    }
+
+    return 0;
+}
