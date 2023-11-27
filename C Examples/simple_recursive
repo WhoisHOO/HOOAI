@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+// Recursive function
+void printReverse(char str[], int length) {
+    // If the string is empty, do nothing.
+    if (length == 0) {
+        return;
+    }
+    
+    // Print the last char
+    printf("%c", str[length - 1]);
+    
+    // Recursive call to print
+    printReverse(str, length - 1);
+}
+
+int main() {
+    char input[] = "Welcome";
+    
+    printf("Original Word: %s\n", input);
+    printf("Backward Word: ");
+    
+    // Exclude the null terminator
+    int length = sizeof(input) - 1;
+    
+    // Call the recursive function
+    printReverse(input, length);
+    
+    printf("\n");
+    
+    return 0;
+}
