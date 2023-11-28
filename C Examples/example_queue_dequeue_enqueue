@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+struct Queue {
+    int array[MAX_SIZE];
+    int front;
+    int rear;
+};
+
+void initializeQueue(struct Queue *queue) {
+    queue->front = -1;
+    queue->rear = -1;
+}
+
+int isEmpty(struct Queue *queue) {
+    return (queue->front == -1 && queue->rear == -1);
+}
+
+int isFull(struct Queue *queue) {
+    return (queue->rear + 1) % MAX_SIZE == queue->front;
+}
+
+void enqueue(struct Queue *queue, int value) {
+    if (isFull(queue)) {
+        printf("Queue is full. Cannot enqueue.\n");
+        return;
+    }
+
+    if (isEmpty(queue)) {
+        queue->front = 0;
+        queue->rear = 0;
+    } else {
+        queue->rear = (queue->rear + 1) % MAX_SIZE;
+    }
+
+    queue->array[queue->rear] = value;
+}
+
+int dequeue(struct Queue *queue) {
+    int dequeuedValue;
+
+    if (isEmpty(queue)) {
+        printf("Queue is empty. Cannot dequeue.\n");
+        return -1;
+    } else if (queue->front == queue->rear) {
+       
+        dequeuedValue = queue->array[queue->front];
+        queue->front = -1;
+        queue->rear = -1;
+    } else {
+        dequeuedValue = queue->array[queue->front];
+        queue->front = (queue->front + 1) % MAX_SIZE;
+    }
+
+    return dequeuedValue;
+}
+
+
+int peek(struct Queue *queue) {
+    if (isEmpty(queue)) {
+        printf("Queue is empty. Cannot peek.\n");
+        return -1;
+    }
+
+    return queue->array[queue->front];
+}
+
+int main() {
+    struct Queue myQueue;
+    initializeQueue(&myQueue);
+
+    enqueue(&myQueue, 10);
+    enqueue(&myQueue, 20);
+    enqueue(&myQueue, 30);
+    enqueue(&myQueue, 40);
+    enqueue(&myQueue, 50);
+
+    printf("Front element: %d\n", peek(&myQueue));
+
+    printf("Dequeued: %d\n", dequeue(&myQueue));
+    printf("Dequeued: %d\n", dequeue(&myQueue));
+    printf("Dequeued: %d\n", dequeue(&myQueue));
+    printf("Dequeued: %d\n", dequeue(&myQueue));
+
+    enqueue(&myQueue, 40);
+
+    printf("Front element: %d\n", peek(&myQueue));
+
+    return 0;
+}
