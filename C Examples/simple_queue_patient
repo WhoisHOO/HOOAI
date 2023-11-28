@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node {
+    char data[20];
+    int priority;
+    struct node* next;
+};
+
+struct node* head = NULL;
+
+void insert(char* val, int pri) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    int i = 0;
+
+    while (val[i] != '\0') {
+        newNode->data[i] = val[i];
+        i++;
+    }
+
+    newNode->data[i] = '\0';
+    newNode->priority = pri;
+
+    if (head == NULL || pri > head->priority) {
+        newNode->next = head;
+        head = newNode;
+    } else {
+        struct node* ptr = head;
+
+        while (ptr->next != NULL && ptr->next->priority >= pri) {
+            ptr = ptr->next;
+        }
+
+        newNode->next = ptr->next;
+        ptr->next = newNode;
+    }
+}
+
+void display() {
+    struct node* ptr = head;
+
+    if (head == NULL) {
+        printf("Queue is empty\n");
+    } else {
+        printf("  Priority Queue is:  ");
+
+        while (ptr != NULL) {
+            printf("|%s Pri:%d|  ", ptr->data, ptr->priority);
+            ptr = ptr->next;
+        }
+    }
+}
+
+void search_change() {
+    struct node* ptr = head;
+    struct node* previousNode = NULL;
+    char name[20];
+    int match = 0;
+
+    if (head == NULL) {
+        printf("Queue is empty\n");
+    } else {
+        printf("Enter the name of the patient to search: ");
+        scanf("%s", name);
+
+        while (ptr != NULL) {
+            int i = 0;
+            match = 1;
+
+            while (name[i] != '\0') {
+                if (ptr->data[i] != name[i]) {
+                    match = 0;
+                    break;
+                }
+                i++;
+            }
+
+            if (match == 1) {
+                if (head == ptr) {
+                    head = head->next;
+                    free(ptr);
+                } else {
+                    previousNode->next = ptr->next;
+                    free(ptr);
+                }
+
+                int newPriority;
+                printf("Enter the new priority for %s: ", name);
+                scanf("%d", &newPriority);
+                insert(name, newPriority);
+                break;
+            }
+
+            previousNode = ptr;
+            ptr = ptr->next;
+        }
+
+        if (match == 0) {
+            printf("The person you are looking for not in the queue.\n");
+        }
+    }
+}
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\nEnter 1 to add a new patient, 2 to change the priority,\n3 to display the queue, Any other key to quit: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                char firstname[20];
+                int priority;
+                printf("  Enter patient's first name: ");
+                scanf("%s", firstname);
+                printf("  Enter patient's priority #: ");
+                scanf("%d", &priority);
+                insert(firstname, priority);
+                break;
+            case 2:
+                search_change();
+                break;
+            case 3:
+                display();
+                break;
+            default:
+                printf("End of program!");
+                exit(0);
+        }
+    }
+
+    return 0;
+}
