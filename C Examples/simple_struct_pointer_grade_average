@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    float value;
+    struct node* next;
+};
+
+struct node* head = NULL;
+
+void displayList() {
+    struct node* nodePtr = head;
+    while (nodePtr != NULL) {
+        printf("%.2f  ", nodePtr->value);
+        nodePtr = nodePtr->next;
+    }
+}
+
+void insert_end(float num) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->value = num;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        struct node* last = head;
+        while (last->next != NULL) {
+            last = last->next;
+        }
+        last->next = newNode;
+    }
+}
+
+float findAverage() {
+    struct node* nodePtr = head;
+    float sum = 0;
+    int count = 0;
+
+    while (nodePtr != NULL) {
+        sum += nodePtr->value;
+        count++;
+        nodePtr = nodePtr->next;
+    }
+
+    if (count == 0) {
+        return 0.0;
+    }
+
+    return sum / count;
+}
+
+int main() {
+    int numExams=7;
+    float examScore;
+
+    printf("\nEnter seven exam scores for your class: \n");
+    for (int i = 0; i < numExams; i++) {
+        printf("Enter exam score #%d: ", i + 1);
+        scanf("%f", &examScore);
+        insert_end(examScore);
+    }
+
+    printf("\nHere are all the exam scores you have entered: \n");
+    printf(" List of Exam Grades: ");
+    displayList();
+
+    printf("\n Class Average: %.2f\n", findAverage());
+
+    return 0;
+}
