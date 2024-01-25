@@ -1,0 +1,46 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
+#Reference
+#https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.vitality.closeness_vitality.html
+#https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.distance_measures.eccentricity.html
+#https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.katz_centrality.html
+
+# Create a graph
+G = nx.karate_club_graph()
+
+# Compute metrics
+eccentricity = nx.eccentricity(G)
+katz_centrality = nx.katz_centrality(G, alpha=0.1, beta=1.0)
+closeness_vitality = nx.closeness_vitality(G)
+
+# Create a layout for our nodes 
+layout = nx.spring_layout(G)
+
+# Plotting without normalization and with different color maps for each metric
+plt.figure(figsize=(18, 6))
+
+# Eccentricity
+plt.subplot(1, 3, 1)
+ecc_values = list(eccentricity.values())
+nx.draw_networkx(G, pos=layout, node_color=ecc_values, with_labels=True, cmap=plt.cm.viridis)
+plt.title('Eccentricity')
+plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=min(ecc_values), vmax=max(ecc_values)), cmap=plt.cm.viridis), ax=plt.gca())
+
+# Katz Centrality
+plt.subplot(1, 3, 2)
+katz_values = list(katz_centrality.values())
+nx.draw_networkx(G, pos=layout, node_color=katz_values, with_labels=True, cmap=plt.cm.plasma)
+plt.title('Katz Centrality')
+plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=min(katz_values), vmax=max(katz_values)), cmap=plt.cm.plasma), ax=plt.gca())
+
+# Closeness Vitality
+plt.subplot(1, 3, 3)
+vitality_values = list(closeness_vitality.values())
+# Adjust vitality values to remove negative infinity
+vitality_values = [max(val, min(vitality_values)) if val == float('-inf') else val for val in vitality_values]
+nx.draw_networkx(G, pos=layout, node_color=vitality_values, with_labels=True, cmap=plt.cm.inferno)
+plt.title('Closeness Vitality')
+plt.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(vmin=min(vitality_values), vmax=max(vitality_values)), cmap=plt.cm.inferno), ax=plt.gca())
+
+plt.show()
