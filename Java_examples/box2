@@ -2,7 +2,7 @@
 //Example2
 import java.util.Scanner;
 
-public class Rectangle {
+class Rectangle {
 
     double length;
     double width;
@@ -20,7 +20,7 @@ public class Rectangle {
     }
 }
 
-class TestRectangle {
+public class TestRectangle {
 
     public static void main(String args[]) {
         Rectangle R1 = new Rectangle();
