@@ -1,0 +1,31 @@
+//Example1
+public class Rectangle {
+
+    private double length;
+    private double width;
+
+    public void setLength(double l) {
+        length = l;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setWidth(double w) {
+        width = w;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public static void main(String[] args) {
+        Rectangle rect = new Rectangle();
+        rect.setLength(5.0);
+        rect.setWidth(10.0);
+
+        System.out.println("Length: " + rect.getLength());
+        System.out.println("Width: " + rect.getWidth());
+    }
+}
