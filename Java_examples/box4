@@ -1,0 +1,20 @@
+//HOOAI
+class box {
+    double width;
+    double height;
+    double depth;
+}
+
+class boxExample {
+    public static void main(String args[]) {
+        box mybox = new box();
+        double vol;
+        
+        mybox.width = 100;
+        mybox.height = 20;
+        mybox.depth = 50;
+               
+        vol = mybox.width * mybox.height * mybox.depth;
+        System.out.println("Volume is " + vol);          
+    }
+}
