@@ -1,0 +1,51 @@
+public class Rectangle {
+
+    private double length;
+    private double width;
+    
+    // Constructor
+    public Rectangle(double len, double w) {
+        length = len;
+        width = w;
+    }
+    
+    // Setter for length
+    public void setLength(double len) {
+        length = len;
+    }
+    
+    // Setter for width
+    public void setWidth(double w) {
+        width = w;
+    }
+    
+    // Getter for length
+    public double getLength() {
+        return length;
+    }
+    
+    // Getter for width
+    public double getWidth() {
+        return width;
+    }
+    
+    // Method to calculate area
+    public double getArea() {
+        return width * length;
+    }
+
+    // Main method to run the program
+    public static void main(String[] args) {
+        // Create a Rectangle object
+        Rectangle myRectangle = new Rectangle(5.0, 10.0);
+
+        // Set length and width
+        myRectangle.setLength(5.0);
+        myRectangle.setWidth(10.0);
+
+        // Print the length, width, and area of the rectangle
+        System.out.println("Rectangle length: " + myRectangle.getLength());
+        System.out.println("Rectangle width: " + myRectangle.getWidth());
+        System.out.println("Rectangle area: " + myRectangle.getArea());
+    }
+}
