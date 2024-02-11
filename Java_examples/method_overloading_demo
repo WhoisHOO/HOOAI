@@ -1,0 +1,19 @@
+public class ExMethodSignatureDemo {
+
+    public static void main(String[] args) {
+        // Creating an instance of ExMethodOverloading
+        ExMethodOverloading moe = new ExMethodOverloading();
+        
+        // Example usage with integers
+        int a = 10, b = 35;
+        System.out.println("Result of adding two integers: " + moe.add(a, b));
+        
+        // Example usage with doubles
+        double c = 29, d = 5;
+        System.out.println("Result of adding two doubles: " + moe.add(c, d));
+        
+        // Example usage with int
+        int e = 29, f = 5;
+        System.out.println("Result of adding two doubles: " + moe.subtract(e, f));
+    }
+}
