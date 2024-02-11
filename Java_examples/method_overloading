@@ -1,0 +1,32 @@
+public class ExMethodOverloading {
+
+    // Overloaded method for adding two integers
+    public int add(int num1, int num2) {
+        return num1 + num2;
+    }
+
+    // Overloaded method for adding three integers
+    public int add(int num1, int num2, int num3) {
+        return num1 + num2 + num3;
+    }
+
+    // Overloaded method for adding two doubles
+    public double add(double num1, double num2) {
+        return num1 + num2;
+    }
+
+    // Overloaded method for concatenating two strings
+    public String add(String str1, String str2) {
+        return str1 + str2;
+    }
+
+    // Alternative method for subtracting two integers
+    public int subtract(int num1, int num2) {
+        return num1 - num2;
+    }
+
+    // Alternative method for adding two integers and returning a double
+    public double addAsDouble(int num1, int num2) {
+        return num1 + num2;
+    }
+}
