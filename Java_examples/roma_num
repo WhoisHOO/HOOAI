@@ -1,0 +1,72 @@
+import java.util.Scanner; // Import statement for java.util.Scanner
+
+/**
+ * This class converts a user-inputted number into its Roman numeral equivalent.
+ * It prompts the user until a valid number is entered or 'x' to exit.
+ */
+public class RomanNumeralConverter {
+
+    /**
+     * Main method that launches the program.
+     * @param args Not used in this application.
+     */
+    public static void main(String[] args) {
+        RomanNumeralConverter converter = new RomanNumeralConverter();
+        converter.promptUser();
+    }
+
+    /**
+     * Prompts the user for a number between 1 and 90 or 'x' to exit.
+     * Repeats until the user chooses to exit.
+     */
+    public void promptUser() {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            System.out.print("Enter a number between 1 and 90 or 'x' to exit: ");
+            input = scanner.next();
+
+            if (input.equalsIgnoreCase("x")) {
+                System.out.println("Exiting the program.");
+                break;
+            }
+
+            try {
+                int number = Integer.parseInt(input);
+
+                if (number < 1 || number > 90) {
+                    System.out.println("Invalid number. Please try again.");
+                } else {
+                    String romanNumeral = convertToRoman(number);
+                    System.out.println("The Roman numeral is: " + romanNumeral);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number or 'x' to exit.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    /**
+     * Converts an integer to a Roman numeral.
+     * @param num The number to convert.
+     * @return The Roman numeral as a String.
+     */
+    public String convertToRoman(int num) {
+        String[] romanNumerals = {"I", "IV", "V", "IX", "X", "XL", "L", "XC"};
+        int[] values = {1, 4, 5, 9, 10, 40, 50, 90};
+
+        StringBuilder roman = new StringBuilder();
+
+        for (int i = values.length - 1; i >= 0; i--) {
+            while (num >= values[i]) {
+                num -= values[i];
+                roman.append(romanNumerals[i]);
+            }
+        }
+
+        return roman.toString();
+    }
+}
